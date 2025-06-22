@@ -119,7 +119,7 @@ public class ThrowBall : MonoBehaviour
         rb.transform.position = projectileOrigin.position;
         rb.transform.rotation = projectileOrigin.rotation;
 
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.gameObject.SetActive(true);
         rb.AddForce(projectileOrigin.forward * forceToUse, forceMode);

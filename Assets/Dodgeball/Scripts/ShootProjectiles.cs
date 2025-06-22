@@ -125,7 +125,7 @@ public class ShootProjectiles : MonoBehaviour
         //        rb.transform.rotation = Quaternion.identity;
         rb.transform.rotation = transform.rotation;
 
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.gameObject.SetActive(true);
         Vector3 p = targetPos;
@@ -156,7 +156,7 @@ public class ShootProjectiles : MonoBehaviour
         Vector3 finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
         if (!float.IsNaN(finalVelocity.x)) //NaN checked
         {
-            rb.velocity = finalVelocity;
+            rb.linearVelocity = finalVelocity;
         }
     }
 }

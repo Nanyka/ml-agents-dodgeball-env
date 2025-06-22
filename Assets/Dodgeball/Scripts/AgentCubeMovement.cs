@@ -134,7 +134,7 @@ namespace MLAgents
         {
             if (dir != Vector3.zero && dashCoolDownTimer > dashCoolDownDuration)
             {
-                rb.velocity = Vector3.zero;
+                rb.linearVelocity = Vector3.zero;
                 rb.AddForce(dir.normalized * dashBoostForce, dashForceMode);
                 dashCoolDownTimer = 0;
             }
@@ -154,7 +154,7 @@ namespace MLAgents
         {
 
             //ADD FORCE
-            var vel = rb.velocity.magnitude;
+            var vel = rb.linearVelocity.magnitude;
             float adjustedSpeed = Mathf.Clamp(agentRunSpeed - vel, 0, agentTerminalVel);
             rb.AddForce(dir * adjustedSpeed, runningForceMode);
 
@@ -180,7 +180,7 @@ namespace MLAgents
 
         public void RunInAir(Rigidbody rb, Vector3 dir)
         {
-            var vel = rb.velocity.magnitude;
+            var vel = rb.linearVelocity.magnitude;
             float adjustedSpeed = Mathf.Clamp(agentRunInAirSpeed - vel, 0, agentTerminalVel);
             rb.AddForce(dir.normalized * adjustedSpeed,
                 runningForceMode);
@@ -188,7 +188,7 @@ namespace MLAgents
 
         public void AddIdleDrag(Rigidbody rb)
         {
-            rb.velocity *= agentIdleDragVelCoeff;
+            rb.linearVelocity *= agentIdleDragVelCoeff;
         }
 
         public void AddFallingForce(Rigidbody rb)

@@ -415,8 +415,8 @@ public class DodgeBallGameController : MonoBehaviour
         WaitForFixedUpdate wait = new WaitForFixedUpdate();
         agent.Stunned = true;
         agent.AgentRb.constraints = RigidbodyConstraints.None;
-        agent.AgentRb.drag = .5f;
-        agent.AgentRb.angularDrag = 0;
+        agent.AgentRb.linearDamping = .5f;
+        agent.AgentRb.angularDamping = 0;
         agent.PlayStunnedVoice();
         yield return new WaitForSeconds(2f);
         if (shouldPoof)
@@ -627,7 +627,7 @@ public class DodgeBallGameController : MonoBehaviour
         {
             var item = AllBallsList[ballNum];
             item.BallIsInPlay(false);
-            item.rb.velocity = Vector3.zero;
+            item.rb.linearVelocity = Vector3.zero;
             item.gameObject.SetActive(true);
             var spawnPosition = BallSpawnPositions[ballSpawnNum].position + Random.insideUnitSphere * BallSpawnRadius;
             item.transform.position = spawnPosition;

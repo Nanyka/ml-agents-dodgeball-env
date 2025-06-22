@@ -168,15 +168,15 @@ public class DodgeBallAgent : Agent
         }
         ActiveBallsQueue.Clear();
         currentNumberOfBalls = 0;
-        AgentRb.velocity = Vector3.zero;
+        AgentRb.linearVelocity = Vector3.zero;
         AgentRb.angularVelocity = Vector3.zero;
         SetActiveBalls(0);
         NormalEyes.gameObject.SetActive(true);
         HitEyes.gameObject.SetActive(false);
         HasEnemyFlag = false;
         Stunned = false;
-        AgentRb.drag = 4;
-        AgentRb.angularDrag = 1;
+        AgentRb.linearDamping = 4;
+        AgentRb.angularDamping = 1;
         Dancing = false;
     }
 
@@ -251,8 +251,8 @@ public class DodgeBallAgent : Agent
             sensor.AddObservation(ballOneHot); //Held DBs Normalized
             sensor.AddObservation((float)HitPointsRemaining / (float)NumberOfTimesPlayerCanBeHit); //Remaining Hit Points Normalized
 
-            sensor.AddObservation(Vector3.Dot(AgentRb.velocity, AgentRb.transform.forward));
-            sensor.AddObservation(Vector3.Dot(AgentRb.velocity, AgentRb.transform.right));
+            sensor.AddObservation(Vector3.Dot(AgentRb.linearVelocity, AgentRb.transform.forward));
+            sensor.AddObservation(Vector3.Dot(AgentRb.linearVelocity, AgentRb.transform.right));
             sensor.AddObservation(transform.InverseTransformDirection(m_HomeDirection));
             sensor.AddObservation(m_DashCoolDownReady);  // Remaining cooldown, capped at 1
             // Location to base
@@ -339,7 +339,7 @@ public class DodgeBallAgent : Agent
         otherAgentdata[3] = info.TeamID == teamID ? 0.0f : 1.0f;
         otherAgentdata[4] = info.Agent.HasEnemyFlag ? 1.0f : 0.0f;
         otherAgentdata[5] = info.Agent.Stunned ? 1.0f : 0.0f;
-        var relativeVelocity = transform.InverseTransformDirection(info.Agent.AgentRb.velocity);
+        var relativeVelocity = transform.InverseTransformDirection(info.Agent.AgentRb.linearVelocity);
         otherAgentdata[6] = relativeVelocity.x / 30.0f;
         otherAgentdata[7] = relativeVelocity.z / 30.0f;
         return otherAgentdata;
